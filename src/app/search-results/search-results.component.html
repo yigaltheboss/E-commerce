@@ -1,0 +1,60 @@
+<!-- {{state.state.products | json}} -->
+<div class="w-100 d-flex justify-content-center align-items-center"
+    *ngIf="this.state.state.site_settings.is_loading_page">
+    <br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br>
+    <div class="spinner-border"></div>
+    <br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br>
+</div>
+<div *ngIf="!this.state.state.site_settings.is_loading_page">
+    <div class="row">
+        <div class="col-md-6" *ngFor="let x of state.state.products; let i = index">
+            <div class="card" (click)="select(i)">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <img class="img-fluid" [src]="x.mainImage">
+                        </div>
+                        <div class="col-8">
+                            <h6>{{ x.title }}</h6>
+                            <div *ngIf="x.oldPrice && x.discountPresent">
+                                <h6>
+                                    <span style="text-decoration: line-through; color: red">{{ x.paymentCurrency }} {{
+                                        x.oldPrice }}</span>&nbsp;
+                                    <span class="badge badge-success">- {{ x.discountPresent }}% off!</span>
+                                </h6>
+                            </div>
+                            <h5>{{ x.paymentCurrency }} {{ x.price }}</h5>
+                            <!-- <p><i class="fas fa-shipping-fast"></i>&nbsp;{{ x.paymentCurrency }} {{ x.shippingPrice }},
+                                from
+                                {{ x.shippingFrom }} in {{ x.shippingTime }} business day(s)
+                            </p> -->
+                            <p>{{ x.stock }} left</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+    <div *ngIf="!this.state.state.site_settings.is_loading_page && state.state.products.length < 6">
+        <br><br><br><br><br><br><br><br><br><br>
+
+       
+    </div>
+    <!-- swich page buttons -->
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <button type="button" [disabled]="this.state.state.site_settings.is_loading_page ||
+            state.state.site_settings.current_page === 1" (click)="switchPage('pre')" class="btn btn-dark">&laquo;
+                Previos</button>
+            &nbsp;Page: {{ state.state.site_settings.current_page }} of
+            {{ state.state.site_settings.total_pages }}&nbsp;
+            <button type="button" [disabled]="this.state.state.site_settings.is_loading_page ||
+            state.state.site_settings.current_page === state.state.site_settings.total_pages"
+                (click)="switchPage('next')" class="btn btn-dark">next
+                &raquo;</button>
+        </div>
+    </div>
+</div>

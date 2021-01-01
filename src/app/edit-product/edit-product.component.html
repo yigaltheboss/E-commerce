@@ -1,0 +1,134 @@
+<h3>Edit product</h3>
+<div class="form-group">
+    <label>Title:</label>
+    <input type="text" [(ngModel)]="state.state.selected_product.title" class="form-control"
+        placeholder="Enter product title">
+</div>
+<div class="form-group">
+    <label>Description:</label>
+    <textarea class="form-control" [(ngModel)]="state.state.selected_product.description" rows="5"
+        placeholder="Enter product description"></textarea>
+</div>
+<!-- <span style="white-space: pre-line">{{state.state.selected_product.description}}</span> -->
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">Main image</div>
+            <div class="card-body">
+                <div class="form-group">
+                    <input type="file" accept="image/*" (change)="onSelectFile1($event)" class="form-control"
+                        placeholder="Choose tournament image">
+                </div>
+                <img *ngIf="state.state.selected_product.mainImage" class="img-fluid"
+                    [src]="state.state.selected_product.mainImage">
+            </div>
+        </div>
+        <br>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">Image 1</div>
+            <div class="card-body">
+                <div class="form-group">
+                    <input type="file" accept="image/*" (change)="onSelectFile2($event)" class="form-control"
+                        placeholder="Choose tournament image">
+                </div>
+                <img *ngIf="state.state.selected_product.images[0]" class="img-fluid"
+                    [src]="state.state.selected_product.images[0]">
+            </div>
+        </div>
+        <br>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">Image 2</div>
+            <div class="card-body">
+                <div class="form-group">
+                    <input type="file" accept="image/*" (change)="onSelectFile3($event)" class="form-control">
+                </div>
+                <img *ngIf="state.state.selected_product.images[1]" class="img-fluid"
+                    [src]="state.state.selected_product.images[1]">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label>Price for 1 unit:</label>
+            <input type="number" [(ngModel)]="state.state.selected_product.price" class="form-control" min="0">
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label>Old price for 1 unit (display Discount: {{ clcDiscount() }}%):</label>
+            <input type="number" [(ngModel)]="state.state.selected_product.oldPrice" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label>Price of shipping:</label>
+            <input type="number" [(ngModel)]="state.state.selected_product.shippingPrice" class="form-control" min="0">
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label>Shipping time (business days):</label>
+            <input type="number" [(ngModel)]="state.state.selected_product.shippingTime" class="form-control" min="0">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label>Shipping from:</label>
+            <input type="text" [(ngModel)]="state.state.selected_product.shippingFrom" class="form-control"
+                placeholder="Enter current product location">
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label>How many units of this product you have:</label>
+            <input type="number" [(ngModel)]="state.state.selected_product.stock" class="form-control" min="0">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label>Shipping only to:</label>
+            <input type="text" class="form-control" [(ngModel)]="state.state.selected_product.shippingLimit"
+                placeholder="Enter where you will ship this product">
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label>Keywords (makes the product easier to find):</label>
+            <input type="text" class="form-control" [(ngModel)]="state.state.selected_product.keyWords"
+                placeholder="Enter product Keywords">
+        </div>
+    </div>
+</div>
+<h6>
+    <input type="checkbox" [checked]="state.state.selected_product.isEvedible"
+        (change)="state.state.selected_product.isEvedible = !state.state.selected_product.isEvedible">
+    product is evedible for purchase
+</h6>
+<button type="button" class="btn btn-dark" (click)="actions.editProduct()" [disabled]="
+!state.state.selected_product.title ||
+!state.state.selected_product.description ||
+!state.state.selected_product.mainImage ||
+!state.state.selected_product.images[0] ||
+!state.state.selected_product.images[1] ||
+state.state.selected_product.price <= 0||
+state.state.selected_product.oldPrice < 0 ||
+state.state.selected_product.shippingPrice <= 0 ||
+state.state.selected_product.shippingTime < 0 ||
+!state.state.selected_product.shippingLimit ||
+!state.state.selected_product.shippingFrom ||
+!state.state.selected_product.keyWords ||
+state.state.selected_product.stock <= 0">
+    <i class="fas fa-save"></i> Save changes</button>
